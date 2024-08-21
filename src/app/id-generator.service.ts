@@ -1,5 +1,13 @@
+import { Injectable } from '@angular/core';
 import { IdGenerator } from './id-generator';
 
 // Доработайте этот код
-
-export class IdGeneratorService extends IdGenerator {}
+@Injectable({
+    providedIn: 'root'
+})
+export class IdGeneratorService extends IdGenerator {
+    private id = 0;
+    override generate(): number {
+        return ++this.id;
+    }
+}
