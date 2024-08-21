@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoItem, TodosService } from './todos.service';
+import { NAME_PREFIX_TOKEN } from './name-prefix.token';
+import { IdGenerator } from './id-generator';
+import { IdGeneratorService } from './id-generator.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +12,15 @@ import { TodoItem, TodosService } from './todos.service';
   imports: [FormsModule],
   providers: [
     // Ваши изменения начинаются здесь
-
+    {
+      provide: NAME_PREFIX_TOKEN,
+      useValue: 'АБОБУС',
+    },
+    {
+      provide: IdGenerator,
+      useExisting: IdGeneratorService,
+    },
+    TodosService,
     // и заканчиваются здесь
   ],
 })
