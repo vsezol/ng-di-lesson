@@ -1,4 +1,4 @@
-import { Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { IdGenerator } from './id-generator';
 import { NAME_PREFIX_TOKEN } from './name-prefix.token';
 
@@ -7,7 +7,8 @@ export interface TodoItem {
   name: string;
 }
 
-// Доработайте этот код
+@Injectable({ providedIn: "root" })
+
 
 export class TodosService {
   constructor(
@@ -19,18 +20,20 @@ export class TodosService {
   #todos: TodoItem[] = [];
 
   getAll(): TodoItem[] {
-    /* здесь будет ваша реализация */
+    return this.#todos;
   }
 
   getById(id: number): TodoItem | undefined {
-    /* здесь будет ваша реализация */
+    return this.#todos.find((item) => item.id === id)
   }
 
   add(name: string): void {
-    /* здесь будет ваша реализация */
+    const newId = this.idGenerator.generate();
+    const newItem: TodoItem = {id: newId, name: `${this.namePrefix} ${name}`}
+    this.#todos.push(newItem);
   }
 
   remove(id: number): void {
-    /* здесь будет ваша реализация */
+    this.#todos = this.#todos.filter((item) => item.id !== id)
   }
 }
